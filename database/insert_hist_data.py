@@ -3,10 +3,10 @@ import psycopg2
 import math
 
 conn = psycopg2.connect(
-  host='localhost',
-  user='',
+  host='ec2url',
+  user='postgres',
     dbname='yelp',
-    password='',
+    password='xxxxxxx',
     port=5432,
     connect_timeout=500)
 cur = conn.cursor()
@@ -18,8 +18,8 @@ for i in range(668):
     print(file_num)
 
     if i%100 == 0:
-        build_table_cmd = '''drop table if exists yelp.master%(a)d;
-         create table yelp.master%(a)d(
+        build_table_cmd = '''drop table if exists history.master%(a)d;
+         create table history.master%(a)d(
          business_id varchar,
          cool float,
          review_date timestamp,
@@ -31,12 +31,12 @@ for i in range(668):
          user_id varchar);''' %{"a":table_num}
 
         cur.execute(build_table_cmd)
-        conn.commit
+        conn.commit()
 
 
     copy_cmd = '''
-      COPY yelp.master%(a)d FROM '/Users/apple/Documents/Bigdata/yelp_dataset/ParsedDataReview/%(b)d.0.csv' DELIMITER',' CSV HEADER;
+      COPY history.master%(a)d FROM '/home/ec2-user/jason/data/ParsedDataReview/%(b)d.0.csv' DELIMITER',' CSV HEADER;
       '''  %{"a":table_num,"b":file_num}
-
+# Make sure the whole directory is accessanle (chmod)
     cur.execute(copy_cmd)
     conn.commit()
