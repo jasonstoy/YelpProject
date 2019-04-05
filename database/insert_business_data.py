@@ -37,7 +37,7 @@ for i in range():
 
 
     copy_cmd = '''
-      COPY history.business%(a)d FROM '/home/ec2-user/jason/data/ParsedDataBusiness/%(b)d.0.csv' DELIMITER',' CSV HEADER;
+      COPY history.business%(a)d FROM '/home/ec2-user/jason/data/ParsedDataBusiness/%(b)d.0.csv' DELIMITER'|' CSV HEADER;
       '''  %{"a":table_num,"b":file_num}
 # Make sure the whole directory is accessanle (chmod)
     cur.execute(copy_cmd)

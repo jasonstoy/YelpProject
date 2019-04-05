@@ -23,3 +23,23 @@ create table analytics.top_master1 as (
   order by sum(stars) desc
   limit 20
 );
+
+/*===============================*/
+drop table if exists analytics.top_review_num_toronto;
+create table analytics.top_review_num_toronto as (
+  SELECT name,business_id,review_count,address,stars,latitude,longitude
+  from history.business1
+  where city like 'Toronto'
+  order by review_count desc
+  limit 100
+);
+/*================================*/
+drop table if exists analytics.top_rating_num_toronto;
+create table analytics.top_rating_num_toronto as (
+  SELECT name,business_id,review_count,address,stars,latitude,longitude
+  from history.business1
+  where city like 'Toronto'
+  order by review_count desc, stars desc
+  limit 100
+);
+/*===================================*/
