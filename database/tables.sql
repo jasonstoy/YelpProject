@@ -43,3 +43,14 @@ create table analytics.top_rating_num_toronto as (
   limit 100
 );
 /*===================================*/
+drop table if exists flow.review_flow;
+create table flow.review_flow(
+  name varchar,
+  userid varchar,
+  username varchar,
+  userprofile varchar,
+  rating int,
+  created timestamp,
+  review varchar,
+  image varchar
+);
